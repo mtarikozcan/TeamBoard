@@ -10,6 +10,7 @@ import authRoutes from './src/routes/auth.js';
 import projectRoutes from './src/routes/projects.js';
 import taskRoutes from './src/routes/tasks.js';
 import commentRoutes from './src/routes/comments.js';
+import { errorHandler } from './src/middleware/errorHandler.js';
 
 const app = express();
 
@@ -43,5 +44,8 @@ app.use('/api/comments', commentRoutes);
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint bulunamadı.' });
 });
+
+// Error handler (en sonda)
+app.use(errorHandler);
 
 export default app;

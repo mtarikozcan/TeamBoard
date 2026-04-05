@@ -1,30 +1,40 @@
 import { Router } from 'express';
+import { verifyToken } from '../middleware/auth.js';
+import {
+  getTasks,
+  getTask,
+  createTaskHandler,
+  updateTaskHandler,
+  deleteTaskHandler,
+} from '../controllers/taskController.js';
+import {
+  getComments,
+  createCommentHandler,
+} from '../controllers/commentController.js';
 
 const router = Router();
 
-// GET /api/tasks/:id
-router.get('/:id', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+router.use(verifyToken);
 
-// PUT /api/tasks/:id
-router.put('/:id', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// GET    /api/projects/:projectId/tasks
+router.get('/projects/:projectId/tasks', getTasks);
+
+// POST   /api/projects/:projectId/tasks
+router.post('/projects/:projectId/tasks', createTaskHandler);
+
+// GET    /api/tasks/:id
+router.get('/:id', getTask);
+
+// PUT    /api/tasks/:id
+router.put('/:id', updateTaskHandler);
 
 // DELETE /api/tasks/:id
-router.delete('/:id', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+router.delete('/:id', deleteTaskHandler);
 
-// GET /api/tasks/:id/comments
-router.get('/:id/comments', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// GET    /api/tasks/:id/comments
+router.get('/:id/comments', getComments);
 
-// POST /api/tasks/:id/comments
-router.post('/:id/comments', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// POST   /api/tasks/:id/comments
+router.post('/:id/comments', createCommentHandler);
 
 export default router;
