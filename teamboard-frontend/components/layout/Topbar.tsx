@@ -18,6 +18,7 @@ export function Topbar({ title, breadcrumb }: TopbarProps) {
 
   function handleLogout() {
     localStorage.removeItem('teamboard_token')
+    localStorage.removeItem('teamboard_user_id')
     localStorage.removeItem('teamboard_name')
     localStorage.removeItem('teamboard_email')
     router.push('/login')

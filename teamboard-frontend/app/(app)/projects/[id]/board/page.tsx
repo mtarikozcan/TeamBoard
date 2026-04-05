@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { use, useCallback, useEffect, useState } from 'react'
 import { DragDropContext, DropResult } from '@hello-pangea/dnd'
 import { Column } from '@/components/board/Column'
 import { TaskModal } from '@/components/board/TaskModal'
@@ -8,12 +8,8 @@ import { CreateTaskModal } from '@/components/board/CreateTaskModal'
 import { projectsApi, tasksApi } from '@/lib/api'
 import type { BoardData, Project, Task, TaskStatus } from '@/types'
 
-interface BoardPageProps {
-  params: { id: string }
-}
-
-export default function BoardPage({ params }: BoardPageProps) {
-  const projectId = params.id
+export default function BoardPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: projectId } = use(params)
 
   const [project, setProject] = useState<Project | null>(null)
   const [board, setBoard] = useState<BoardData>({ todo: [], inprogress: [], done: [] })

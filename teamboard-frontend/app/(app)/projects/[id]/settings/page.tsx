@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -9,17 +9,13 @@ import { projectsApi } from '@/lib/api'
 import { cn, getInitials } from '@/lib/utils'
 import type { Project, ProjectMember } from '@/types'
 
-interface SettingsPageProps {
-  params: { id: string }
-}
-
 interface ProjectForm {
   name: string
   description: string
 }
 
-export default function SettingsPage({ params }: SettingsPageProps) {
-  const projectId = params.id
+export default function SettingsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: projectId } = use(params)
 
   const [project, setProject] = useState<Project | null>(null)
   const [members, setMembers] = useState<ProjectMember[]>([])

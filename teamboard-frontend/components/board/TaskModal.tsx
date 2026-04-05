@@ -83,8 +83,8 @@ export function TaskModal({ task, projectId, members, onClose, onUpdate, onDelet
 
   if (!task) return null
 
-  const userName = typeof window !== 'undefined'
-    ? (localStorage.getItem('teamboard_name') ?? '')
+  const currentUserId = typeof window !== 'undefined'
+    ? (localStorage.getItem('teamboard_user_id') ?? '')
     : ''
 
   return (
@@ -175,7 +175,7 @@ export function TaskModal({ task, projectId, members, onClose, onUpdate, onDelet
             <p className="text-tx-muted text-sm">Henüz yorum yok</p>
           ) : (
             comments.map((comment) => {
-              const isOwnComment = comment.user_id === userName
+              const isOwnComment = comment.user_id === currentUserId
 
               return (
                 <div key={comment.id} className="flex gap-2">

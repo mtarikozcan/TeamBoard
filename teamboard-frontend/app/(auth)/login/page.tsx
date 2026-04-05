@@ -30,6 +30,7 @@ export default function LoginPage() {
       const { token, user } = res.data
 
       localStorage.setItem('teamboard_token', token)
+      localStorage.setItem('teamboard_user_id', user.id)
       localStorage.setItem('teamboard_name', user.name)
       localStorage.setItem('teamboard_email', user.email)
 
