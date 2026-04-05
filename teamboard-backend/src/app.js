@@ -6,11 +6,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-import authRoutes from './src/routes/auth.js';
-import projectRoutes from './src/routes/projects.js';
-import taskRoutes from './src/routes/tasks.js';
-import commentRoutes from './src/routes/comments.js';
-import { errorHandler } from './src/middleware/errorHandler.js';
+import authRoutes from './routes/auth.js';
+import projectRoutes from './routes/projects.js';
+import taskRoutes from './routes/tasks.js';
+import commentRoutes from './routes/comments.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 

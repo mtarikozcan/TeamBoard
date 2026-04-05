@@ -16,7 +16,7 @@ const createTaskSchema = Joi.object({
     'string.max': 'Görev başlığı en fazla 255 karakter olabilir.',
   }),
   description: Joi.string().allow('', null).optional(),
-  assignedTo: Joi.uuid().optional(),
+  assignedTo: Joi.string().uuid().optional(),
   priority: Joi.string().valid('low', 'medium', 'high').optional(),
   dueDate: Joi.date().iso().optional(),
 });
@@ -25,7 +25,7 @@ const updateTaskSchema = Joi.object({
   title: Joi.string().min(2).max(255).optional(),
   description: Joi.string().allow('', null).optional(),
   status: Joi.string().valid('todo', 'inprogress', 'done').optional(),
-  assignedTo: Joi.uuid().allow(null).optional(),
+  assignedTo: Joi.string().uuid().allow(null).optional(),
   priority: Joi.string().valid('low', 'medium', 'high').optional(),
   dueDate: Joi.date().iso().allow(null).optional(),
 });
