@@ -1,40 +1,38 @@
 import { Router } from 'express';
+import { verifyToken } from '../middleware/auth.js';
+import {
+  getProjects,
+  getProject,
+  createProjectHandler,
+  updateProjectHandler,
+  deleteProjectHandler,
+  addMemberHandler,
+  removeMemberHandler,
+} from '../controllers/projectController.js';
 
 const router = Router();
 
-// GET /api/projects
-router.get('/', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+router.use(verifyToken);
 
-// POST /api/projects
-router.post('/', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// GET    /api/projects
+router.get('/', getProjects);
 
-// GET /api/projects/:id
-router.get('/:id', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// POST   /api/projects
+router.post('/', createProjectHandler);
 
-// PUT /api/projects/:id
-router.put('/:id', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// GET    /api/projects/:id
+router.get('/:id', getProject);
+
+// PUT    /api/projects/:id
+router.put('/:id', updateProjectHandler);
 
 // DELETE /api/projects/:id
-router.delete('/:id', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+router.delete('/:id', deleteProjectHandler);
 
-// POST /api/projects/:id/members
-router.post('/:id/members', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+// POST   /api/projects/:id/members
+router.post('/:id/members', addMemberHandler);
 
 // DELETE /api/projects/:id/members/:userId
-router.delete('/:id/members/:userId', (req, res) => {
-  res.status(501).json({ message: 'Henüz implement edilmedi.' });
-});
+router.delete('/:id/members/:userId', removeMemberHandler);
 
 export default router;
