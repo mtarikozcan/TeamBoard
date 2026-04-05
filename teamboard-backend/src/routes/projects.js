@@ -9,6 +9,7 @@ import {
   addMemberHandler,
   removeMemberHandler,
 } from '../controllers/projectController.js';
+import { getTasks, createTaskHandler } from '../controllers/taskController.js';
 
 const router = Router();
 
@@ -19,6 +20,12 @@ router.get('/', getProjects);
 
 // POST   /api/projects
 router.post('/', createProjectHandler);
+
+// GET    /api/projects/:projectId/tasks
+router.get('/:projectId/tasks', getTasks);
+
+// POST   /api/projects/:projectId/tasks
+router.post('/:projectId/tasks', createTaskHandler);
 
 // GET    /api/projects/:id
 router.get('/:id', getProject);

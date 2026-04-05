@@ -32,7 +32,8 @@ export async function getProjectById(projectId) {
 
   const membersResult = await pool.query(
     `SELECT
-       u.id,
+       pm.id,
+       u.id AS user_id,
        u.name,
        u.email,
        pm.role,

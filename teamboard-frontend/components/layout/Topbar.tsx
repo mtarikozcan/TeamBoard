@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getInitials } from '@/lib/utils'
 import { cn } from '@/lib/utils'
@@ -11,10 +12,11 @@ interface TopbarProps {
 
 export function Topbar({ title, breadcrumb }: TopbarProps) {
   const router = useRouter()
+  const [userName, setUserName] = useState('Kullanıcı')
 
-  const userName = typeof window !== 'undefined'
-    ? (localStorage.getItem('teamboard_name') ?? 'Kullanıcı')
-    : 'Kullanıcı'
+  useEffect(() => {
+    setUserName(localStorage.getItem('teamboard_name') ?? 'Kullanıcı')
+  }, [])
 
   function handleLogout() {
     localStorage.removeItem('teamboard_token')

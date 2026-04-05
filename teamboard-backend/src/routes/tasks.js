@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import { verifyToken } from '../middleware/auth.js';
 import {
-  getTasks,
   getTask,
-  createTaskHandler,
   updateTaskHandler,
   deleteTaskHandler,
 } from '../controllers/taskController.js';
@@ -15,12 +13,6 @@ import {
 const router = Router();
 
 router.use(verifyToken);
-
-// GET    /api/projects/:projectId/tasks
-router.get('/projects/:projectId/tasks', getTasks);
-
-// POST   /api/projects/:projectId/tasks
-router.post('/projects/:projectId/tasks', createTaskHandler);
 
 // GET    /api/tasks/:id
 router.get('/:id', getTask);
