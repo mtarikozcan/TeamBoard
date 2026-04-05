@@ -23,6 +23,7 @@ export default function SettingsPage({ params }: { params: Promise<{ id: string 
   const [saveMessage, setSaveMessage] = useState<'saved' | null>(null)
   const [inviteEmail, setInviteEmail] = useState('')
   const [inviting, setInviting] = useState(false)
+  const [inviteError, setInviteError] = useState<string | null>(null)
 
   const {
     register: registerProject,
@@ -71,6 +72,7 @@ export default function SettingsPage({ params }: { params: Promise<{ id: string 
     if (!inviteEmail.trim()) return
 
     setInviting(true)
+    setInviteError(null)
     try {
       await projectsApi.addMember(projectId, inviteEmail.trim())
       await loadProject()
@@ -79,7 +81,7 @@ export default function SettingsPage({ params }: { params: Promise<{ id: string 
       const message =
         (error as { response?: { data?: { error?: string } } })?.response?.data?.error ??
         'Üye eklenemedi'
-      alert(message)
+      setInviteError(message)
     } finally {
       setInviting(false)
     }
@@ -185,28 +187,36 @@ export default function SettingsPage({ params }: { params: Promise<{ id: string 
           )}
         </div>
 
-        <div className="flex gap-2">
-          <input
-            type="email"
-            value={inviteEmail}
-            onChange={(e) => setInviteEmail(e.target.value)}
-            placeholder="uye@email.com"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault()
-                onInviteMember()
-              }
-            }}
-            className="flex-1 bg-surface-subtle border border-border rounded px-3 py-2 text-sm text-tx-primary placeholder:text-tx-muted focus:outline-none focus:border-blue-500"
-          />
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={onInviteMember}
-            disabled={inviting || !inviteEmail.trim()}
-          >
-            {inviting ? 'Davet Ediliyor...' : 'Davet Et'}
-          </Button>
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={inviteEmail}
+              onChange={(e) => { setInviteEmail(e.target.value); setInviteError(null) }}
+              placeholder="uye@email.com"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  onInviteMember()
+                }
+              }}
+              className={cn(
+                'flex-1 bg-surface-subtle border rounded px-3 py-2 text-sm text-tx-primary placeholder:text-tx-muted focus:outline-none focus:border-blue-500',
+                inviteError ? 'border-red-500' : 'border-border'
+              )}
+            />
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={onInviteMember}
+              disabled={inviting || !inviteEmail.trim()}
+            >
+              {inviting ? 'Davet Ediliyor...' : 'Davet Et'}
+            </Button>
+          </div>
+          {inviteError && (
+            <p className="text-xs text-red-400">{inviteError}</p>
+          )}
         </div>
       </section>
     </div>
