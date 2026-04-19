@@ -99,6 +99,20 @@ export default function LoginPage() {
             Kayıt ol
           </Link>
         </p>
+
+        <div className="mt-6 border border-border rounded-lg p-4 bg-surface-base">
+          <p className="text-xs font-semibold text-tx-secondary uppercase tracking-wide mb-3">Demo Hesabı</p>
+          <div className="flex flex-col gap-1.5 text-sm font-mono">
+            <div className="flex justify-between items-center">
+              <span className="text-tx-secondary">E-posta</span>
+              <span className="text-tx-primary select-all">admin@teamboard.com</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-tx-secondary">Şifre</span>
+              <span className="text-tx-primary select-all">admin123</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
